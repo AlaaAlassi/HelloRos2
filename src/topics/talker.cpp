@@ -31,6 +31,7 @@ void print_usage()
   printf("options:\n");
   printf("-h : Print this help function.\n");
   printf("-t topic_name : Specify the topic on which to publish. Defaults to chatter.\n");
+  printf("-t topic_name : Specify the topic on which to publish. Defaults to chatter.\n");
 }
 
 // Create a Talker class that subclasses the generic rclcpp::Node base class.
@@ -47,7 +48,7 @@ public:
     auto publish_message =
       [this]() -> void
       {
-        msg_->data = "Hello World: " + std::to_string(count_++);
+        msg_->data = "Hello alaa: " + std::to_string(count_++);
         RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", msg_->data.c_str());
 
         // Put the message into a queue to be processed by the middleware.
@@ -61,7 +62,7 @@ public:
     pub_ = this->create_publisher<std_msgs::msg::String>(topic_name, custom_qos_profile);
 
     // Use a timer to schedule periodic message publishing.
-    timer_ = this->create_wall_timer(1s, publish_message);
+    timer_ = this->create_wall_timer(1ms, publish_message);
   }
 
 private:
